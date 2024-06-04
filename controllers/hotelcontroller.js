@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const {hotel} = require("../models/db")
 const {menuItem} = require("../models/menu")
 const {Person} = require("../models/person")
@@ -44,7 +44,7 @@ exports.hotel = (req,res)=>{
     }).catch((err)=>{
       console.log("error");
     })
-    res.json({message:"person data successfully saved"});
+    res.json(PersonData);
   };
 
   exports.Data = async(req,res)=>{

@@ -166,13 +166,16 @@
 const express = require('express');
 const app = express();
 const hotelroutes= require("./controllers/hotelcontroller")
+require('dotenv').config();
 // const {hotel} = require("./models/db")
 // const {menuItem} = require("./models/menu")
 // const {Person} = require('./models/person');
 const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json()); //req.body
 app.get('/',hotelroutes.data)
+app.post('/', hotelroutes.data)
 // app.get('/menu:workType', hotelroutes.work)
 app.get('/menu', hotelroutes.menu )
 app.get('/Person', hotelroutes.Data)
@@ -180,13 +183,10 @@ app.get('/Person/:workType', hotelroutes.specificData)
 app.post('/Person', hotelroutes.Person)
 app.put('/Person/:id', hotelroutes.updateData)
 app.delete('/Person/:id', hotelroutes.deleteData)
-
-
-
 app.post('/menu', hotelroutes.menu)
 app.post('/hotel', hotelroutes.hotel)
 
-app.listen(3000, ()=>{
+app.listen(PORT, ()=>{
     console.log("listening on port 3000");
 })
 

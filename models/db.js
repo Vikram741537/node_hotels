@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/hotel");
+require('dotenv').config();
+// mongoose.connect("mongodb://localhost:27017/hotel");
+// mongoose.connect("mongodb+srv://Vikram741:Qwerty12345@cluster0.icmjreh.mongodb.net/");
+const mongoURL = process.env.MONGODB_URL_LOCAL;
+//const mongoURL = process.env.MONGODB_URL;
+
 const hotelSchema = new mongoose.Schema({
     name: {
         type: String,
