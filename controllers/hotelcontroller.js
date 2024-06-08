@@ -5,7 +5,7 @@ const {menuItem} = require("../models/menu")
 const {Person} = require("../models/person")
 
 
-exports.data  =  async(req, res) => {
+exports.hotelData  =  async(req, res) => {
     const data = await hotel.find();
     res.json(data);
   
@@ -21,6 +21,7 @@ exports.menu = (req,res) => {
     res.json({message:"record saved"});
   };
 
+
 exports.hotel = (req,res)=>{
     const {name, empId, position} = req.body;  //destructuring
     const user = new hotel({
@@ -33,7 +34,7 @@ exports.hotel = (req,res)=>{
     }).catch((err)=>{
       console.log("error");
     })
-    res.json({message:"record saved"})
+    res.json(user)
   };
   
   exports.Person = (req,res) =>{
@@ -47,10 +48,11 @@ exports.hotel = (req,res)=>{
     res.json(PersonData);
   };
 
-  exports.Data = async(req,res)=>{
+  exports.PersonData = async(req,res)=>{
     const Data = await Person.find();
     res.json(Data);
   }
+
 
   exports.specificData = async(req,res)=>{
     const workType = req.params.workType;

@@ -161,34 +161,75 @@
 // const json = JSON.stringify(objectToconvert) // CONVERT OBJECT TO JSON STRING
 // console.log(json);
 // console.log(typeof json);
-
 //server creation
 const express = require('express');
 const app = express();
 const hotelroutes= require("./controllers/hotelcontroller")
 require('dotenv').config();
-// const {hotel} = require("./models/db")
-// const {menuItem} = require("./models/menu")
-// const {Person} = require('./models/person');
+// const passport = require('passport');
+// const localStrategy = require('passport-local').Strategy;
 const bodyParser = require('body-parser');
+const { Person } = require('./models/person');
+// app.use(express.json())
+app.use(bodyParser.json()); //req.body
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json()); //req.body
-app.get('/',hotelroutes.data)
-app.post('/', hotelroutes.data)
+//middleware function
+const logRequest= (req,res,next)=>{
+    console.log(`${new Date().toLocaleString()} Request made to : ${req.originalUrl}`);
+    next(); //move on the next phase
+}
+app.use(logRequest);
+// passport.use(new localStrategy(async(username,password,done)=>{
+// // authentication logic here
+// try{
+//     console.log('recieved credentials:', username, password);
+//     const user = await Person.findOne({username:username})
+//     if(!user){
+//         return done(null, false, {message:'incorrect user name'})
+//     }
+//     const ispasswordMatch = user.password===password ? true:false
+//     if(ispasswordMatch){
+//         return done(null,user);
+//     }else{
+//         return done(null, false, {message:'incorrect password'})
+//     }
+
+// }catch(err){
+//   return done(err);
+// }
+// }))
+
+// app.use(passport.initialize)
+
+// app.get('/',(req,res)=>{
+//     res.send("welcome to my hotel.")
+// })
+
+app.get('/',hotelroutes.hotelData)
+// app.post('/', hotelroutes.hotel)
 // app.get('/menu:workType', hotelroutes.work)
-app.get('/menu', hotelroutes.menu )
-app.get('/Person', hotelroutes.Data)
+// app.get('/menu', hotelroutes.menu )
+app.get('/Person', hotelroutes.PersonData)
 app.get('/Person/:workType', hotelroutes.specificData)
 app.post('/Person', hotelroutes.Person)
+app.post('/', hotelroutes.hotel)
+app.post('/menu', hotelroutes.menu)
 app.put('/Person/:id', hotelroutes.updateData)
 app.delete('/Person/:id', hotelroutes.deleteData)
-app.post('/menu', hotelroutes.menu)
-app.post('/hotel', hotelroutes.hotel)
 
 app.listen(PORT, ()=>{
     console.log("listening on port 3000");
 })
+
+
+
+
+
+
+
+
+
 
 
 
