@@ -163,6 +163,7 @@
 // console.log(typeof json);
 //server creation
 const express = require('express');
+// const mongoose = require('mongoose');
 const app = express();
 const hotelroutes= require("./controllers/hotelcontroller")
 require('dotenv').config();
@@ -221,6 +222,8 @@ app.delete('/Person/:id', hotelroutes.deleteData)
 app.listen(PORT, ()=>{
     console.log("listening on port 3000");
 })
+
+
 
 
 
